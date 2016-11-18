@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AntTask" default="">
+
+	<property file="local.properties" />
+
+	<!-- 加载Android Task -->
+	<path id="android.antlibs">
+		<pathelement path="/work/android-sdk-linux/tools/lib/ant-tasks.jar" />
+	</path>
+	<taskdef resource="anttasks.properties" classpathref="android.antlibs" />
+
+	<!-- ant-contrib中的for接口必须使用net/sf/antcontrib/antlib.xml -->
+	<!-- 并且使用命名空间 -->
+	<!-- 命名空间必须使用 uri="antlib:net.sf.antcontrib" -->
+	<taskdef uri="antlib:net.sf.antcontrib" resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="demo/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<!-- net/sf/antcontrib/antcontrib.properties也可以加载ant-contrib的Task -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="demo/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<!-- -->
+	<!-- -->
+	<!-- -->
+	<target name="study" description="">
+		<java classname="study.system.GetProperties">
+			<arg value="-h" />
+			<classpath>
+				<pathelement path="/work/code/Workspaces/study/bin" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="study2" description="">
+		<property name="what.is.your.name" value="mobile.qq" />
+		<if>
+			<equals arg1="${what.is.your.name}" arg2="mobile" />
+			<then>
+				<echo message="My name is mobile."></echo>
+			</then>
+			<elseif>
+				<equals arg1="${what.is.your.name}" arg2="qq" />
+				<then>
+					<echo message="My name is qq."></echo>
+				</then>
+			</elseif>
+			<else>
+				<echo message="I don't know your name." />
+			</else>
+		</if>
+		<switch value="${what.is.your.name}" xmlns:ac="antlib:net.sf.antcontrib">
+			<case value="mobile">
+				<echo message="The value of property is mobile" />
+			</case>
+			<case value="qq">
+				<echo message="The value of property is qq" />
+			</case>
+			<default>
+				<echo message="The value of property is ${what.is.your.name}" />
+			</default>
+		</switch>
+		<ac:switch value="${what.is.your.name}" xmlns:ac="antlib:net.sf.antcontrib">
+			<case value="mobile">
+				<echo message="The value of property is mobile" />
+			</case>
+			<case value="qq">
+				<echo message="The value of property is qq" />
+			</case>
+			<default>
+				<echo message="The value of property is ${what.is.your.name}" />
+			</default>
+		</ac:switch>
+		<ac:for list="a,b,c,d,e" param="letter" xmlns:ac="antlib:net.sf.antcontrib">
+			<sequential>
+				<echo>Letter @{letter}</echo>
+			</sequential>
+		</ac:for>
+
+		<input
+			message="修改Demo服务器参数...&#10;&#10;Demo服务器参数:&#10;
+1、Mt4常用&#10;
+2、Bo常用&#10;
+3、默认&#10;
+4、自定义&#10;
+&#10;
+请选择："
+			addproperty="new.server.type.demo" validargs="1,2,3,4" defaultvalue="${new.server.type.demo.def}" />
+	</target>
+</project>
