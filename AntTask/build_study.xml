@@ -25,10 +25,22 @@
 		</classpath>
 	</taskdef>
 
+	<target name="build" description="">
+		<mkdir dir="build" />
+		<javac srcdir="src" destdir="build" />
+	</target>
+
+	<taskdef name="ZhxInput" classname="zhangxin.ant.task.ZhxInput"
+		classpath="build" />
+
 	<!-- -->
 	<!-- -->
 	<!-- -->
 	<target name="study" description="">
+		<ZhxInput />
+	</target>
+
+	<target name="studyold" description="">
 		<java classname="study.system.GetProperties">
 			<arg value="-h" />
 			<classpath>
